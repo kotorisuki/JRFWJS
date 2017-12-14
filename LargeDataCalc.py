@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # 读取json文件中的数据，进行批量处理
 
-import time
-import datetime
-from datetime import date
 import json
 from integration import integration
 
