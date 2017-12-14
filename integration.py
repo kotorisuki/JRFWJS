@@ -31,13 +31,16 @@ def integration(c,v,timeStart,yn,timeCurrent,f):
     #Draw("Date","Yield","Time-Yield-Curve",range(n+1),syield) #画出年利率随时间变化的图像
     #Draw("Date","Yield","Time-Yield-Curve",range(n),syield[1:n+1]) #画出年利率随时间变化的图像
     pv = PVCalc(c,v,t,n,f,syield) #计算现值pv
-    if(n!=0):
-        yy=(gznewton(pv,c,v,n,t,1.1,0.000001,f)-1)*f #计算综合年利率
+    if(pv):
+        if(n!=0):
+            yy=(gznewton(pv,c,v,n,t,1.1,0.000001,f)-1)*f #计算综合年利率
+        else:
+            yy=syield[0]
+        dd=DurationCalc(c,v,f,t,n,yy,pv) #计算久期
+        cc=ConvexityCalc(c,v,f,t,n,yy,pv) #计算凸性
+        return pv,yy,dd,cc
     else:
-        yy=syield[0]
-    dd=DurationCalc(c,v,f,t,n,yy,pv) #计算久期
-    cc=ConvexityCalc(c,v,f,t,n,yy,pv) #计算凸性
-    return pv,yy,dd,cc
+        return 0,0,0,0
 
 
 if __name__ == '__main__':
