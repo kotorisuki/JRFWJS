@@ -2,8 +2,6 @@
 #画图程序
 
 import matplotlib.pyplot as plt
-from datetime import date
-import time
 
 def Draw(xl,yl,t,x,y):
     plt.figure(figsize=(8,4))#图片大小
