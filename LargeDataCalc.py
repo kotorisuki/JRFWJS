@@ -29,10 +29,3 @@ def data_input(filename):
             #print "==============%d============="%i
     with open('result.json', 'w') as json_file:
             json_file.write(json.dumps(result))
-
-
-if __name__ == '__main__':
-    t1 = time.time()
-    data_input('rdata.json')
-    t2 = time.time()
-    print "耗时：%f" % (t2-t1)
