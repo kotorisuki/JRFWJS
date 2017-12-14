@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
+
 import time
 from LargeDataCalc import data_input
-
 
 if __name__ == '__main__':
     t1 = time.time()
