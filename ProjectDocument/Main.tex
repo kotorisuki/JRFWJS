@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage{geometry} 
+\geometry{a4paper} 
+
+\usepackage{graphicx}
+\usepackage{CJK}
+\usepackage{amssymb,amsmath,bm}
+\usepackage{chngpage}
+\usepackage{array}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx,algorithm}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{longtable}
+\usepackage{ltxtable, filecontents}
+
+\begin{document}
+\begin{CJK}{UTF8}{song}
+
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  
+
+\title{金融服务计算\\项目文档}
+\date{2017-12-15}
+\author{作者：刘清仪，刘宏阳，李想，狄休，黄文瀚，廖超\\指导老师：英俊好，曹健}
+
+
+
+\maketitle
+
+\tableofcontents
+
+%Chapter 1
+\newpage
+\section{基本概念与定义}
+\input{Chap1.tex}
+ 
+
+%Chapter 2
+\newpage
+\section{现值(Price)的计算}
+\input{Chap2.tex}
+
+%Chapter 3
+\newpage
+\section{分期支付利息的计算}
+\input{Chap3.tex}
+
+%Chapter 4
+\newpage
+\section{Dirty Price的计算}
+\input{Chap4.tex}
+
+%Chapter 5
+\newpage
+\section{利用牛顿迭代法计算年化收益率y}
+\input{Chap5.tex}
+
+%Chapter 6
+\newpage
+\section{算法总结}
+\input{Chap6.tex}
+
+%Chapter 7
+\newpage
+\section{流程图}
+\input{Chap7.tex}
+
+%Chapter 8
+\newpage
+\section{API}
+\input{Chap8.tex}
+
+%Chapter 9
+\newpage
+\section{参考文献}
+\input{Chap9.tex}
+
+
+\end{CJK}
+\end{document}
