@@ -1,5 +1,5 @@
 Run the following in terminal.
-```
+```bash
 python app.py
 ```
 
