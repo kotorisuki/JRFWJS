@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-TODO
+Single Calculation
 {% endblock %}
 
 {% block page1_active %}
@@ -9,7 +9,80 @@ active
 {% endblock %}
 
 {% block main_content %}
-<main role="main" class="inner cover">
-    <p class="lead">TODO</p>
-</main>
+	{% if error %}
+		<li><em>{{ error }}</em></li>
+	{% endif %}
+	<main role="main" class="inner cover">
+		<p class="lead">
+		</p>
+	<div align="left">
+			<form action="{{ url_for('query', page_id=1) }}" method="post">
+				<table cellpadding="5">
+					<tr>
+						<td> Face Value: </td>
+						<td> <input type=number min="0" name=fv required="required"> </td>
+						<td> RMB </td>
+					</td>
+					<tr>
+						<td> Coupon Rate: </td>
+						<td> <input type=number min="-100" name=cr required="required"> </td>
+						<td> % </td>
+					</tr>
+					<tr>
+						<td> Pay Frequency: </td>
+						<td>
+							<select name=pf>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="6">6</option>
+								<option value="12">12</option>
+							</select>
+						</td>
+						<td> per year </td>
+					</tr>
+					<tr>
+						<td> Issue Date </td>
+						<td> <input type=date name=id required="required"> </td>
+						<td> Format yyyy-mm-dd </td>
+					</tr>
+					<tr>
+						<td> Settlement Date: </td>
+						<td> <input type=date name=sd required="required"> </td>
+						<td> Format yyyy-mm-dd </td>
+					</tr>
+					<tr>
+						<td> Selling Date: </td>
+						<td> <input type=date name=pd required="required"> </td>
+						<td> Format yyyy-mm-dd </td>
+					</tr>
+					<tr>
+						<td> Selling Price: </td>
+						<td> <input type=number min="0" name=sp required="required"> </td>
+						<td> RMB </td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Calculate!"></td>
+						<td></td>
+					<tr>
+				</table>
+			</form>
+	</div>
+	{% if results %}
+		<table border="1" cellpadding="5">
+			<tr>
+				<td> Yield(y) </td>
+				<td> Duration(d) </td>
+				<td> Convexity(c) </td>
+			</tr>
+			<tr>
+				<td> {{ results['y'] }} </td>
+				<td> {{ results['d'] }} </td>
+				<td> {{ results['c'] }} </td>
+			<tr>
+		</table>
+	{% endif %}
+	</main>
 {% endblock %}
