@@ -9,15 +9,17 @@
     <title>{% block title %} {% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript -->
+    <!--
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    -->
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 
   </head>
 
