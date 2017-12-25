@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 时间输入程序 不考虑闰年的情况 每年都是365天计算
+# 时间输入程序，不考虑闰年的情况，每年都按365天计算。
 
 import datetime
 from datetime import date
