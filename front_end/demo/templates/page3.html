@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-TODO
+Help
 {% endblock %}
 
 {% block page3_active %}
@@ -10,6 +10,28 @@ active
 
 {% block main_content %}
 <main role="main" class="inner cover">
-    <p class="lead">TODO</p>
+	<p class="lead">
+	</p>
+	<div align="left">
+	<dl>
+	<dt> <a href="{{ url_for('page', page_id=1) }}"> Singer Calculation </a>
+	<br>
+	<dd> Just input all required information to calculate the yield, duration and convexity information for a bond.
+	<br>
+	<dt> <a href="{{ url_for('page', page_id=2) }}"> Batch Calculation</a>
+	<br>
+	<dd> Upload a json file which incluing all the bond for query. For each bond the following information should be contained:
+	<br>
+	<ul>
+	<li> face_value: the face value of the bond </li>
+	<li> coupon_rate: the coupou rate of the bond </li>
+	<li> time_start: the issue date of the bond, format: YYYY-MM-DD </li>
+	<li> year: the length of the term of the bond </li>
+	<li> time_cur: selling date, the same format as time_start </li>
+	<li> frequency: the frequncy of the payment per year </li>
+	</ul>
+	<dd>Here is an <a href=" {{ url_for("download", filename="testdata.json") }} ">example</a> for the json file.
+	<dl>
+	</div>
 </main>
 {% endblock %}

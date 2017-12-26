@@ -48,19 +48,14 @@ active
 						<td> Format yyyy-mm-dd </td>
 					</tr>
 					<tr>
-						<td> Settlement Date: </td>
-						<td> <input type=date name=sd required="required"> </td>
-						<td> Format yyyy-mm-dd </td>
+						<td> Period : </td>
+						<td> <input type=number min="1" name=yn required="required"> </td>
+						<td> year(s) </td>
 					</tr>
 					<tr>
 						<td> Selling Date: </td>
 						<td> <input type=date name=pd required="required"> </td>
 						<td> Format yyyy-mm-dd </td>
-					</tr>
-					<tr>
-						<td> Selling Price: </td>
-						<td> <input type=number min="0" name=sp required="required"> </td>
-						<td> RMB </td>
 					</tr>
 					<tr>
 						<td></td>
@@ -73,14 +68,16 @@ active
 	{% if results %}
 		<table border="1" cellpadding="5">
 			<tr>
+				<td> PresentValue(pv) </td>
 				<td> Yield(y) </td>
 				<td> Duration(d) </td>
 				<td> Convexity(c) </td>
 			</tr>
 			<tr>
-				<td> {{ results['y'] }} </td>
-				<td> {{ results['d'] }} </td>
-				<td> {{ results['c'] }} </td>
+				<td> {{ results['Pv'] }} </td>
+				<td> {{ results['Yield'] }} </td>
+				<td> {{ results['Duration'] }} </td>
+				<td> {{ results['Convexity'] }} </td>
 			<tr>
 		</table>
 	{% endif %}
