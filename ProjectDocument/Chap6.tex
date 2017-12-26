@@ -1,6 +1,6 @@
 输入：给定任意一个coupon bond
 输出：该coupon bond的present value， duration以及convexity
-	从市场获得与当前coupon bond相似的其他bond的y，这里的相似主要指的是利率、到期时间等相似，数据来源：彭博社（bloomberg.com）
+	从市场获得与当前coupon bond相似的其他bond的y，这里的相似主要指的是利率、到期时间等相似
 	通过牛顿迭代法找到需要的$y_i$，具体进行几轮牛顿迭代法，找到几个$y_i$，取决于从当前时刻到到期，还要发放利息几次
 	利用上文给出的公式，将$y_i$的具体值带入，求出PV，duration和convexity。
 
