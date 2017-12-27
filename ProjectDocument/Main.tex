@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+
 \usepackage{geometry} 
 \geometry{a4paper} 
 
@@ -13,6 +14,13 @@
 \usepackage{mathrsfs}
 \usepackage{longtable}
 \usepackage{ltxtable, filecontents}
+\usepackage{fancyhdr}    
+\usepackage{lastpage}
+\usepackage{float}
+
+\pagestyle{fancy} %fancyhdr宏包新增的页面风格
+\fancyhf{}
+\rhead{Page \thepage\ of \pageref{LastPage}}%当前页  of 总页数
 
 \begin{document}
 \begin{CJK}{UTF8}{song}
@@ -21,7 +29,7 @@
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  
 
 \title{金融服务计算\\项目文档}
-\date{2017-12-15}
+\date{2017-12-24}
 \author{作者：刘清仪，刘宏阳，李想，狄休，黄文瀚，廖超\\指导老师：英俊好，曹健}
 
 
@@ -63,12 +71,12 @@
 
 %Chapter 7
 \newpage
-\section{流程图}
+\section{模块划分}
 \input{Chap7.tex}
 
 %Chapter 8
 \newpage
-\section{API}
+\section{实验环境}
 \input{Chap8.tex}
 
 %Chapter 9

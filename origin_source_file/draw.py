@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 #画图程序
+#y:到期收益率
+#n:计算收益的时间
 
 import matplotlib.pyplot as plt
 
@@ -43,7 +45,7 @@ def yieldTimeDrawL(te,n,y,f):
         ax.set_ylim(0,max(y)+0.01)
         plt.show()
         
-def yieldTimeDraw(te,n,y,f):
+def yieldTimeDraw(n,y):
     if(len(y)!=0):
         plt.figure(figsize=(8,4))#图片大小
         plt.axis([-1,len(y),0,max(y)+0.01])
@@ -54,3 +56,4 @@ def yieldTimeDraw(te,n,y,f):
         plt.title("Time-Yield-Curve")#图像名称
         #plt.legend()
         plt.show()
+

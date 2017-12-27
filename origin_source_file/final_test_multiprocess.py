@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#调用多进程运行所花的时间
 
 import time
 from multiprocessing import Pool
@@ -24,4 +25,4 @@ if __name__ == '__main__':
     p.join()
     t2 = time.time()
     print 'All subprocesses done.'
-    print "耗时:%f" % (t2-t1)
+    print "使用多进程所花的时间:%f" % (t2-t1)

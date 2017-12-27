@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # 读取json文件中的数据，进行批量处理
+#filename: 文件名
+#i： 需要计算的coupon到期的日期
+#unittest.TestCase：Python通用测试模块
 
 import time
 import datetime

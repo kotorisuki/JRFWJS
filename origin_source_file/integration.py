@@ -2,15 +2,6 @@
 # 整合程序
 # 作用：根据历史债券信息，计算债券在任意时刻的现值pv，其预计的综合年化收益率，久期和凸性
 
-from time_input import time_input
-from newton import gznewton
-from newton import PVCalc
-from newton import DurationCalc
-from newton import ConvexityCalc
-from syield import get_yields
-from draw import Draw
-from draw import yieldTimeDraw
-
 #v :债券本金
 #c :债券的利率
 #timeStart:债券发行日期(格式：XXXX\XX\XX):\n")
@@ -22,6 +13,19 @@ from draw import yieldTimeDraw
 #t：到下一次付息的间隔
 #ts:债券发行日期 datetime类
 #te:债券结算日期 date类
+#pv:债券现值
+#yy:到期收益率
+#dd:久期
+#cc:凸性
+
+from time_input import time_input
+from newton import gznewton
+from newton import PVCalc
+from newton import DurationCalc
+from newton import ConvexityCalc
+from syield import get_yields
+from draw import Draw
+from draw import yieldTimeDraw
 
 # 作用：根据历史债券信息，预估债券在任意时刻的现值pv，并计算综合年化收益率，久期和凸性
 def integration(c,v,timeStart,yn,timeCurrent,f):

@@ -1,3 +1,4 @@
+#连接SQL数据库
 import mysql.connector  
 import pp
 
