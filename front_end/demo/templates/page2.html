@@ -51,7 +51,15 @@ active
 	{% endif %}
 	<main role="main" class="inner cover">
 	</main>
-		<p class="lead"></p>
+		{% if results %}
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		{% endif %}
 		<div align="left">
 			<form action="{{ url_for('query', page_id=2)}}" method="post" enctype="multipart/form-data">
 				<table cellpadding="5">
@@ -92,9 +100,16 @@ active
 		<span id="spanLast">Last</span>&nbsp;&nbsp;
 		The&nbsp;<span id="spanPageNum"></span>&nbsp;Page/Total&nbsp;<span id="spanTotalPage"></span>&nbsp;Page
 		</div>
-		<a href=" {{ url_for("download", filename=resultfilename)}} "> Download Result Json File </a>
-		<p>
-			
-		</p>
+		<a href=" {{ url_for('download', filename=resultfilename)}} "> Download Result Json File </a>
+		<br>
+		<img src=" {{ url_for('static', filename=yPng) }} " href=" {{ url_for('static', filename=yPng) }} "  width="400" height="300" alt="yields" />
+		<img src=" {{ url_for('static', filename=dPng) }} " href=" {{ url_for('static', filename=dPng) }} " width="400" height="300" alt="durations"/>
+		<img src=" {{ url_for('static', filename=cPng) }} " href=" {{ url_for('static', filename=cPng) }} " width="400" height="300" alt="convexities"/>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	{% endif %}
 {% endblock %}
