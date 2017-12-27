@@ -25,7 +25,7 @@ active
 					</td>
 					<tr>
 						<td> Coupon Rate: </td>
-						<td> <input type=number min="-100" name=cr required="required"> </td>
+						<td> <input type=float min="-100" name=cr required="required"> </td>
 						<td> % </td>
 					</tr>
 					<tr>
@@ -72,12 +72,14 @@ active
 				<td> Yield(y) </td>
 				<td> Duration(d) </td>
 				<td> Convexity(c) </td>
+				<td> DirtyPrice(dp) </td>
 			</tr>
 			<tr>
 				<td> {{ results['Pv'] }} </td>
 				<td> {{ results['Yield'] }} </td>
 				<td> {{ results['Duration'] }} </td>
 				<td> {{ results['Convexity'] }} </td>
+				<td> {{ results['DirtyPrice'] }} </td>
 			<tr>
 		</table>
 	{% endif %}

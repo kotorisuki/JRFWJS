@@ -29,7 +29,7 @@ def integration(c,v,timeStart,yn,timeCurrent,f):
     syield=get_yields(yn,n,t,f,ts) #获得相似债券yield
     #yieldTimeDraw(te,n,syield[1:n+1],f)#画出年利率随时间变化的图像
     #Draw("Date","Yield","Time-Yield-Curve",range(n+1),syield) #画出年利率随时间变化的图像
-    #Draw("Date","Yield","Time-Yield-Curve",range(n),syield[1:n+1]) #画出年利率随时间变化的图像
+    #Draw("Date","Yield","Time-Yield-Curve", (n),syield[1:n+1]) #画出年利率随时间变化的图像
     pv = PVCalc(c,v,t,n,f,syield) #计算现值pv
     if(pv):
         if(n!=0):
@@ -38,10 +38,10 @@ def integration(c,v,timeStart,yn,timeCurrent,f):
             yy=syield[0]
         dd=DurationCalc(c,v,f,t,n,yy,pv) #计算久期
         cc=ConvexityCalc(c,v,f,t,n,yy,pv) #计算凸性
-        return pv,yy,dd,cc
+        dp=pv+v*c/f*(1-t) # 计算dirty price
+        return pv,yy,dd,cc,dp
     else:
-        return 0,0,0,0
-
+        return 0,0,0,0,0
 
 if __name__ == '__main__':
     pv,yy,dd,cc=integration(0.042,100.0,"2010/11/11",5,"2012/12/1",2)

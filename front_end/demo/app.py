@@ -66,11 +66,12 @@ def query(page_id):
 		period = int(request.form['yn'])
 		timeCurrent = request.form['pd']
 		frequency = int(request.form['pf'])
-		pv, yy, dd, cc = integration.integration(c, m, timeStart, period, timeCurrent, frequency)
+		pv, yy, dd, cc, dp = integration.integration(c, m, timeStart, period, timeCurrent, frequency)
 		results['Pv'] = pv
 		results['Yield'] = yy
 		results['Duration'] = dd
 		results['Convexity'] = cc
+		results['DirtyPrice'] = dp
 		return render_template("page1.html", results=results, error=None)
 	elif page_id == 2:
 		file_dir = app.config['UPLOAD_FOLDER']
@@ -90,11 +91,13 @@ def query(page_id):
 			fakeyPng = filename[:-5] + "yield" + ".png"
 			fakedPng = filename[:-5] + "duration" + ".png"
 			fakecPng = filename[:-5] + "convexity" + ".png"
+			fakedpPng = filename[:-5] + "dirtyprice" + ".png"
 			fakeresultfilename = filename[:-5] + "result" + ".json"
 			filename = os.path.join(file_dir, filename)
 			yPng = os.path.join(app.config['STATIC_FOLDER'], fakeyPng)
 			dPng = os.path.join(app.config['STATIC_FOLDER'], fakedPng)
 			cPng = os.path.join(app.config['STATIC_FOLDER'], fakecPng)
+			dpPng = os.path.join(app.config['STATIC_FOLDER'], fakedpPng)
 			resultfilename = filename[:-5] + "result" + ".json"
 			if os.path.isfile(filename):
 				os.remove(filename)
@@ -102,11 +105,11 @@ def query(page_id):
 			LargeDataCalc.data_input(filename, resultfilename)
 			with open(resultfilename) as json_file:
 				results = json.load(json_file)
-			drawPictures.drawPicture(results, yPng, dPng, cPng)
+			drawPictures.drawPicture(results, yPng, dPng, cPng, dpPng)
 			cnt = len(results)
 			for i in xrange(cnt):
 				results[i]['Id'] = i
-			return render_template("page2.html", results=results, error=None, resultfilename = fakeresultfilename, yPng = fakeyPng, dPng = fakedPng, cPng = fakecPng)
+			return render_template("page2.html", results=results, error=None, resultfilename = fakeresultfilename, yPng = fakeyPng, dPng = fakedPng, cPng = fakecPng, dpPng = fakedpPng)
 		return render_template("page2.html", results=None, error="Unknown Error!")
 	else:
 		abort(404)

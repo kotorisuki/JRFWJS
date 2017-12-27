@@ -10,13 +10,13 @@ def data_input(filename, resultfilename):
     cnt = len(data)
     result=[]
     for i in xrange(cnt):
-        pv,yy,dd,cc=integration(data[i]['coupon_rate'],
+        pv,yy,dd,cc,dp=integration(data[i]['coupon_rate'],
                                 data[i]['face_value'],
                                 data[i]['time_start'],
                                 data[i]['year'],
                                 data[i]['time_cur'],
                                 data[i]['frequency'])
-        re={'Pv':pv,'Yield':yy,'Duration':dd,'Convexity':cc}
+        re={'Pv':pv,'Yield':yy,'Duration':dd,'Convexity':cc,'DirtyPrice':dp}
         result.append(re)
         #if(i%1000 == 0):
             #print "PV：%f" % pv

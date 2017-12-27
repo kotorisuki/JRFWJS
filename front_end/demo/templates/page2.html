@@ -79,6 +79,7 @@ active
 				<td> Yield(y) </td>
 				<td> Duration(d) </td>
 				<td> Convexity(c) </td>
+				<td> DirtyPrice(dp) </td>
 			</tr>
 			{% for result in results %}
 				{% if loop.index > 3000 %}
@@ -90,6 +91,7 @@ active
 				<td> {{ result['Yield'] }} </td>
 				<td> {{ result['Duration'] }} </td>
 				<td> {{ result['Convexity'] }} </td>
+				<td> {{ result['DirtyPrice'] }} </td>
 			</tr>
 			{% endfor %}
 		</table>
@@ -102,9 +104,10 @@ active
 		</div>
 		<a href=" {{ url_for('download', filename=resultfilename)}} "> Download Result Json File </a>
 		<br>
-		<img src=" {{ url_for('static', filename=yPng) }} " href=" {{ url_for('static', filename=yPng) }} "  width="400" height="300" alt="yields" />
-		<img src=" {{ url_for('static', filename=dPng) }} " href=" {{ url_for('static', filename=dPng) }} " width="400" height="300" alt="durations"/>
-		<img src=" {{ url_for('static', filename=cPng) }} " href=" {{ url_for('static', filename=cPng) }} " width="400" height="300" alt="convexities"/>
+		<a href=" {{ url_for('static', filename=yPng) }} "> <img src=" {{ url_for('static', filename=yPng) }} " width="400" height="300" alt="yields" /> </a>
+		<a href=" {{ url_for('static', filename=dPng) }} "> <img src=" {{ url_for('static', filename=dPng) }} " width="400" height="300" alt="durations" /> </a>
+		<a href=" {{ url_for('static', filename=cPng) }} "> <img src=" {{ url_for('static', filename=cPng) }} " width="400" height="300" alt="convexities" /> </a>
+		<a href=" {{ url_for('static', filename=dpPng) }} "> <img src=" {{ url_for('static', filename=dpPng) }} " width="400" height="300" alt="dirtyPrices" /> </a>
 		<br>
 		<br>
 		<br>
