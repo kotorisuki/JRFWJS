@@ -1,4 +1,15 @@
-表\ref{tab:sys.param}给出了基本概念与定义。
+\subsection{项目需求}
+\begin{enumerate}
+\item 实现一个能计算为现金流生成利率和贴现因子的利率模型。
+\item 计算给定债券的到期现金流、股息和支付频率，计算债券价格、到期收益率、现值等指标。
+\item 除了计算债券的现值、到期收益率，进一步计算债券的久期和凸性，以得到该债券对市场变动的敏感性程度。
+\item 提供友好的用户界面。
+\item 在上述系统分布式地、异步地部署在云端，并用百万级别的债券数据对系统的性能进行测试。
+\end{enumerate}
+
+
+\subsection{基本概念与定义}
+Table\ref{tab:sys.param}给出了基本概念与定义。
 
 \begin{filecontents}{mytable1.tex}
   \begin{longtable}{lX}
@@ -31,3 +42,4 @@
 \LTXtable{\textwidth}{mytable1}
 
 （备注：由于相同duration对不同金额的债券影响程度不一样，所以duration中除以了price，以进行规约化处理，convexity同理。）
+

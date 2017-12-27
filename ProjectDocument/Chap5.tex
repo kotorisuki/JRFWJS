@@ -1,14 +1,63 @@
-图\ref{fig:sys.param}表示利用牛顿迭代法计算年化收益率y。
-\begin{figure}[htbp]
+\subsection{直接使用Cython编译}
+为了提升系统性能，我们的初步尝试是使用Cython来将原有Python程序转化为C语言并进行编译。
+\paragraph{性能分析}在百万数据集上，调用C++加速。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
 \begin{center}
-\includegraphics[width=16cm]{img//Newton.PNG}
-\caption{牛顿迭代法}
-\label{fig:sys.param}
+\begin{tabular}{|p{.8\textwidth}| p{.2\textwidth}|} \hline
+技术手段 & 运行时间  \\ \hline
+原始python代码 & 约50s  \\ \hline
+使用Cython编译各函数 & 约38s  \\ \hline
+\end{tabular}
 \end{center}
-\end{figure}
+\end{adjustwidth}
+\end{table}
 
-先根据市场年化率，猜测一个$y_1$,
-对曲线上点$(y_1, D_1)$和$(y_0, D_0)$，我们可以求出$Duration = dp/dy$,
-逐步调整$y_1$的值，缩小$\Delta y$,
-把猜测的值往真实值逼近,
-也就是牛顿迭代法。
+
+\subsection{使用静态变量后再编译为C语言}
+由于Python本身并不需要声明变量类型，在使用Cython将原有Python程序转化为C语言的过程中，需要加入大量用于类型检查的代码。对系统的主要函数使用静态变量，能够有效减少翻译得到的C语言的代码量，以进一步提高系统的整体性能。
+
+\paragraph{性能分析}在百万数据集上，调用Python多进程。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.8\textwidth}| p{.2\textwidth}|} \hline
+技术手段 & 运行时间  \\ \hline
+原始python代码 & 约50s  \\ \hline
+使用Cython编译各函数 & 约38s  \\ \hline
+使用Cython编译各函数并使用静态变量 & 约26s\\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+\subsection{使用Python多进程}
+很显然，使用Python多进程在理论上可以加快代码的运行速度。
+
+\paragraph{性能分析}在百万数据集上，调用Python多进程。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.6\textwidth}| p{.2\textwidth}|p{.2\textwidth}|} \hline
+技术手段 & 运行时间  &运行时间\\ \hline
+原始python代码 & 约50s & 约13s \\ \hline
+使用Cython编译各函数 & 约38s & 约11s \\ \hline
+使用Cython编译各函数并使用静态变量 & 约26s& 约7.8s\\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+\subsection{使用分布式处理}
+以上三种加速方法均是针对单机进行加速，在第四种方法中，我们尝试利用分布式地方法进行加速。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+使用框架 & parallel python，它是一个基于python的并行计算以及分布式集群计算框架  \\ \hline
+缺点& 没有负载均衡，节点之间工作分配不均匀，加速效果较差
+  \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}

@@ -1,23 +1,180 @@
-图\ref{fig:sys.param}给出了Dirty Price与时间t的关系。
-\begin{figure}[htbp]
+\subsection{计算模块}
+
+\paragraph{autotest} 
+该子模块负责自动测试。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
 \begin{center}
-\includegraphics[width=16cm]{img//DirPri_t_Relation.PNG}
-\caption{Dirty Price与时间t的关系}
-\label{fig:sys.param}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 无  \\ \hline
+输出 & 运行测试集的数目，运行测试集所需时间  \\ \hline
+描述 & 首先将一些测试用例写入Json文件，在该子模块中批量调用Json文件中的数据，将本模型的计算结果与测试集的正确结果进行比较，如果误差在允许范围内，认为该测试集运行通过，否则失败。  \\ \hline
+\end{tabular}
 \end{center}
-\end{figure}
+\end{adjustwidth}
+\end{table}
 
-Dirty price指的是clean price和accrued interest（已经发放的利息）的和。
-Clean price指的是还未领取的息票本金折现到当前时刻是多少钱。
 
-其中t坐标轴的偶数（2,4,6,8，……）指的是股息发放日。每次发放股息后，coupon的dirty price等于clean price。随着利息的积累，dirty price逐渐高于clean price，直到下次股息发放日股息再次方法，dirty price再次等于clean price。
-市场上的报价通常是clean price，所以交易双方需要根据自己的交易模型计算出accrued interest，在交易时把积累的利息加上去。
+\paragraph{draw}
+该子模块负责图片绘制。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 到期时间，计算收益的时间  \\ \hline
+输出 & 时间与到期收益率的关系图 \\ \hline
+描述 & 绘制时间与到期收益率的关系图。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
 
-对于Duration和convexity，我们有以下结论：
-1.Duration的加权平均就是该coupon bond的加权平均
-2.Convexity 的加权平均就是该coupon bond的加权平均
 
-规范化表示：
-$Duration_avg=(P*V_1*D_1+P*V_2*D_2+ \cdots)/(P*V_1+P*V_2+\cdots)$
-$Convexity_avg=(P*V_1*C_1+P*V_2*C_2+\cdots)/(P*V_1+P*V_2+\cdots)$
+\paragraph{final$\_$test$\_$multiprocess}
+该子模块计算多进程使用的时间。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 无  \\ \hline
+输出 & 调用多进程比直接运行父进程，所多花的时间 \\ \hline
+描述 & 调用6个子进程，计算其运行所需的时间，将其与直接运行父进程所需的时间，进行对比。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
 
+
+\paragraph{final$\_$test$\_$singleprocess}
+直接运行百万数据集的测试用例，所需的时间。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 无  \\ \hline
+输出 & 在百万数据集上，调用多进程比直接运行父进程，多花的时间 \\ \hline
+描述 & 在百万数据集上，调用7个子进程，计算其运行所需的时间，将其与直接运行父进程所需的时间，进行对比。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\paragraph{integration}
+根据历史债券信息，计算债券在任意时刻的现值pv，其预计的综合年化收益率，久期和凸性。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 债券利率，债券本金，债券发行日期，债券年限，债券出售日期，债券付息频率  \\ \hline
+输出 & 债券现值，到期收益率，久期，凸性 \\ \hline
+描述 & 该子模块通过调用其他计算子模块，计算给定的任意债券的债券现值，到期收益率，久期，凸性。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+\paragraph{LargeDataCalc}
+读取json文件中的数据，进行批量处理。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & Json文件  \\ \hline
+输出 & Json文件 \\ \hline
+描述 & 该子模块对大数据进行批量处理，从Json文件批量读取数据，再进行批量计算，将计算结果写入Json文件，并保存在本地。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\paragraph{newton}
+使用牛顿迭代法，估计出目标债券的到期收益率。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 债券的当前价格，利率，本金，剩余付息次数，到下一次付息的时间/两次付息间隔，估计的精度，付息频率  \\ \hline
+输出 & 估计的到期收益率 \\ \hline
+描述 & 该子模块利用牛顿迭代法对给定债券在某时刻的到期收益率进行估计。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\paragraph{SQL}
+连接SQL数据库。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 无  \\ \hline
+输出 & 无 \\ \hline
+描述 & 该子模块用于连接SQL数据库。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\paragraph{syield}
+找到与给定债券相似的债券的到期收益率。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 给定债券的年限，给定债券剩下的付息次数，给定债券的到期时间，给定债券的付息频率，给定债券的发行日期  \\ \hline
+输出 & 与给定债券相似的债券的到期收益率 \\ \hline
+描述 & 该子模块通过在市场上寻找与给定债券的年限、付息次数、到期时间、付息频率、发行日期等参数相似的债券聚类，来得到估计的到期收益率。 \\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\paragraph{time$\_$input}
+时间输入程序，不考虑闰年的情况，每年都按365天计算。
+\begin{table}[H]
+\begin{adjustwidth}{-3cm}{-3cm}
+\begin{center}
+\begin{tabular}{|p{.2\textwidth}| p{.8\textwidth}|} \hline
+输入 & 债券开始的时间，债券的年限，当前的时间，债券的付息频率  \\ \hline
+输出 & 债券剩下的付息次数，距离下次发息时间，债券开始时间，债券结束时间 \\ \hline
+描述 &  该子模块对于用户输入的时间进行标准化处理，将标准化的输出用于之后的子模块输入中。\\ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\end{table}
+
+
+\subsection{加速模块}
+\paragraph{C-Version-without static variables}
+使用Cython编译各函数。
+
+\paragraph{C-Version-static variables}
+使用Cython编译各函数并使用静态变量。
+
+
+\subsection{前端模块}
+\paragraph{cover}
+该子模块用于展示首页索引。
+
+\paragraph{layout}
+该子模块用于展示网页布局。
+
+\paragraph{page1}
+该子模块用于展示计算页面。
+
+\paragraph{page2}
+该子模块用于展示计算页面。
+
+\paragraph{page3}
+该子模块用于展示计算页面。
+
+\paragraph{welcome}
+该子模块用于展示欢迎页面。
+
+\subsection{数据集}
+我们提供了100万组债券的信息，用于测试本系统在大数据情况下的性能。通过调用C++加速、调用Python多进程、使用静态变量等本地加速和分布式计算的方式，来提高系统的处理速度。

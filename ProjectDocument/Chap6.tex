@@ -1,13 +1,83 @@
-输入：给定任意一个coupon bond
-输出：该coupon bond的present value， duration以及convexity
-	从市场获得与当前coupon bond相似的其他bond的y，这里的相似主要指的是利率、到期时间等相似，数据来源：彭博社（bloomberg.com）
-	通过牛顿迭代法找到需要的$y_i$，具体进行几轮牛顿迭代法，找到几个$y_i$，取决于从当前时刻到到期，还要发放利息几次
-	利用上文给出的公式，将$y_i$的具体值带入，求出PV，duration和convexity。
+\subsection{计算逻辑准确性测试}
+Figure\ref{fig:sys.param}展示了测试计算逻辑模块的准确性时，系统输出的结果。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//integration.PNG}
+\caption{计算逻辑准确性测试}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
 
-本计算方法的核心在于，我们的利率计算模型。也就是求到期收益率y。对于每一个到期收益率y，有一个现值PV一一对应。对于给定的一个coupon bond，我们在计算其现值PV时，可以有两种处理方法。Y随着时间的变化而变化，可以认为每天都有一个y值（但是不一定每天的y值都不相同，也可能有些日期的y值是相同的。）
 
-法一
-将未来每次发息日发放的利息，折现到当前时刻。例如，假设未来还将发息3次，分别在0.2年、0.7年、1.2年以后，那么我们需要计算出0.2年后对应的到期收益率y，0.7年后的到期收益率y以及1.2年以后的到期收益率y。计算这些y的方法，是通过与给定coupon bound相似的一些coupon bound或者zero coupon bound的y值，来拟合出一条到期收益率y与时间t的关系曲线。通过这种方式，我们将y和t之间的散点图变为了连续函数，使得我们可以得到任何一天的到期收益率y。从而通过将未来的利息及本金折现到当前时刻，得到当前时刻的现值PV。
+\subsection{自动测试结果}
+Figure\ref{fig:sys.param}展示了使用自动测试程序测试本系统的准确性和性能时，自动测试程序输出的结果。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//autotest.PNG}
+\caption{自动测试结果}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
 
-法二
-在法一中，我们需要多个y。这里，我们使用一个y来求得当前时刻的现值PV。因为y和PV是一一对应的关系。所以我们通过相似债券的y和PV的关系图，利用牛顿迭代法，直接得到某个到期收益率y对应的现值PV。那么如果知道我输入的coupon bond的在当前时刻y是多少呢？我们可以对一群相似的coupon bond的到期收益率进行加权平均来估计要求的coupon bond的到期收益率y。
+
+\subsection{调用多进程性能测试}
+Figure\ref{fig:sys.param}展示了调用Python多进程时，系统输出的结果。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//final_test_multiprocess.PNG}
+\caption{调用多进程性能测试}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
+
+
+\subsection{不使用并行计算}
+Figure\ref{fig:sys.param}展示了不使用并行计算，运行用时103秒。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//non_parallel.PNG}
+\caption{不使用并行计算}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
+
+\subsection{单机下并行计算}
+Figure\ref{fig:sys.param}展示了单机并行百万级数据效果，用时11.83秒，效果不理想，因为文件io阻塞。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//single_parallel.PNG}
+\caption{单机下并行计算}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
+
+
+\subsection{单机下并行计算的优化}
+Figure\ref{fig:sys.param}展示了经过优化的单机并行百万级数据效果，用时10.63秒。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//single_parallel_opt.PNG}
+\caption{单机下并行计算的优化}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
+
+\subsection{三百万数据测试}
+Figure\ref{fig:sys.param}展示了三百万数据集下的测试结果。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//3million.PNG}
+\caption{三百万数据测试}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
+
+\subsection{分布式计算测试结果}
+Figure\ref{fig:sys.param}展示了使用台式机+笔记本构成的集群下的测试结果。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=16cm]{img//distribution.PNG}
+\caption{分布式计算测试结果}
+\label{fig:sys.param}
+\end{center}
+\end{figure}
