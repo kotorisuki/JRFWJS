@@ -1,5 +1,42 @@
 {% extends "layout.html" %}
 
+{% block addition_head %}
+	<script type="text/javascript" src="{{ url_for('static', filename='pagination.js') }}"></script>
+	<script type="text/javascript">
+		var numCount;
+		var pageCount;
+		var pageNum;
+		var currPageNum;
+
+		var blockTable;
+		var preSpan;
+		var firstSpan;
+		var nextSpan;
+		var lastSpan;
+		var pageNumSpan;
+		var currPageSpan;
+
+		window.onload=function(){
+			blockTable = document.getElementById("blocks");
+			preSpan = document.getElementById("spanPre");
+			firstSpan = document.getElementById("spanFirst");
+			nextSpan = document.getElementById("spanNext");
+			lastSpan = document.getElementById("spanLast");
+			pageNumSpan = document.getElementById("spanTotalPage");
+			currPageSpan = document.getElementById("spanPageNum");
+
+			numCount = document.getElementById("blocks").rows.length-1;
+			pageCount = 5;
+			pageNum = parseInt(numCount/pageCount);
+			if(0 != numCount%pageCount){
+				pageNum += 1;
+			}
+			firstPage();
+		};
+	</script>
+
+{% endblock %}
+
 {% block title %}
 Batch Calculation
 {% endblock %}
@@ -14,7 +51,15 @@ active
 	{% endif %}
 	<main role="main" class="inner cover">
 	</main>
-		<p class="lead"></p>
+		{% if results %}
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		{% endif %}
 		<div align="left">
 			<form action="{{ url_for('query', page_id=2)}}" method="post" enctype="multipart/form-data">
 				<table cellpadding="5">
@@ -27,22 +72,47 @@ active
 			</form>
 		</div>
 	{% if results %}
-		<table border="1" cellpadding="5">
+		<table id="blocks" class="table table-striped" border="1" cellpadding="1">
 			<tr>
 				<td> ID </td>
+				<td> PresentValue(pv) </td>
 				<td> Yield(y) </td>
 				<td> Duration(d) </td>
 				<td> Convexity(c) </td>
+				<td> DirtyPrice(dp) </td>
 			</tr>
 			{% for result in results %}
+				{% if loop.index > 3000 %}
+					{% break %}
+				{% endif %}
 			<tr>
-				<td> {{ result['id'] }} </td>
-				<td> {{ result['y'] }} </td>
-				<td> {{ result['d'] }} </td>
-				<td> {{ result['c'] }} </td>
-			<tr>
+				<td> {{ result['Id'] }} </td>
+				<td> {{ result['Pv'] }} </td>
+				<td> {{ result['Yield'] }} </td>
+				<td> {{ result['Duration'] }} </td>
+				<td> {{ result['Convexity'] }} </td>
+				<td> {{ result['DirtyPrice'] }} </td>
+			</tr>
 			{% endfor %}
 		</table>
-		<p href=" {{ url_for("download", filename=resultfilename)}} "> </p>
+		<div id="pagiDiv" align="right" style="width:600px">
+		<span id="spanFirst">First</span>&nbsp;&nbsp;
+		<span id="spanPre">Pre</span>&nbsp;&nbsp;
+		<span id="spanNext">Next</span>&nbsp;&nbsp;
+		<span id="spanLast">Last</span>&nbsp;&nbsp;
+		The&nbsp;<span id="spanPageNum"></span>&nbsp;Page/Total&nbsp;<span id="spanTotalPage"></span>&nbsp;Page
+		</div>
+		<a href=" {{ url_for('download', filename=resultfilename)}} "> Download Result Json File </a>
+		<br>
+		<a href=" {{ url_for('static', filename=yPng) }} "> <img src=" {{ url_for('static', filename=yPng) }} " width="400" height="300" alt="yields" /> </a>
+		<a href=" {{ url_for('static', filename=dPng) }} "> <img src=" {{ url_for('static', filename=dPng) }} " width="400" height="300" alt="durations" /> </a>
+		<a href=" {{ url_for('static', filename=cPng) }} "> <img src=" {{ url_for('static', filename=cPng) }} " width="400" height="300" alt="convexities" /> </a>
+		<a href=" {{ url_for('static', filename=dpPng) }} "> <img src=" {{ url_for('static', filename=dpPng) }} " width="400" height="300" alt="dirtyPrices" /> </a>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	{% endif %}
 {% endblock %}
